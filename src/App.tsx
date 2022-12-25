@@ -1,6 +1,6 @@
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyles } from './styles/global';
-import { defaultTheme } from './styles/themes/defaultTheme';
+import { ThemeProvider } from 'styled-components'
+import { GlobalStyles } from './styles/global'
+import { defaultTheme } from './styles/themes/defaultTheme'
 
 export const App = () => {
   return (
@@ -10,5 +10,5 @@ export const App = () => {
       </div>
       <GlobalStyles />
     </ThemeProvider>
-  );
-};
+  )
+}

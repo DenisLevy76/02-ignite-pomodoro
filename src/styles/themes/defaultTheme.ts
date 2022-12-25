@@ -24,4 +24,4 @@ export const defaultTheme = {
   type: {
     fontFamily: 'Roboto, sans-serif',
   },
-};
+}
