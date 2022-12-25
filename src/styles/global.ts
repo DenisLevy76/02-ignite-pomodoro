@@ -10,6 +10,7 @@ export const GlobalStyles = createGlobalStyle`
     :focus {
       outline: none;
       box-shadow: 0 0 0 2px ${theme.colors['green-500']};
+      border-radius: 4px;
     }
 
     body {
@@ -24,6 +25,11 @@ export const GlobalStyles = createGlobalStyle`
       font-family: ${theme.type.fontFamily};
       font-weight: 400;
       font-size: 1rem;
+    }
+
+    ul,
+    ol {
+      list-style: none;
     }
   `}
 `
