@@ -42,7 +42,6 @@ export const HomePage: FC = () => {
 
   const handleCreateNewTask = ({ task, minutes }: newCycleFormData) => {
     const id = crypto.randomUUID()
-
     const newCycle: ICycle = {
       id,
       task,

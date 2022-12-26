@@ -60,14 +60,8 @@ export const HistoryList = styled.div`
   `}
 `
 
-const statusColor = {
-  'em andamento': 'yellow-500',
-  concluído: 'green-500',
-  interrompido: 'red-500',
-} as const
-
-export const Status = styled.span`
-  ${({ theme, children }) => css`
+export const Status = styled.span<{ color: 'green' | 'yellow' | 'red' }>`
+  ${({ theme, color }) => css`
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -77,14 +71,11 @@ export const Status = styled.span`
       width: 0.5rem;
       height: 0.5rem;
       border-radius: 50%;
-      background: ${theme.colors[
-        statusColor[
-          children?.toString().toLowerCase() as
-            | 'em andamento'
-            | 'concluído'
-            | 'interrompido'
-        ]
-      ]};
+      background: ${color === 'green'
+        ? theme.colors['green-500']
+        : color === 'yellow'
+        ? theme.colors['yellow-500']
+        : theme.colors['red-500']};
     }
   `}
 `

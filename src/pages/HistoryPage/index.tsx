@@ -1,8 +1,12 @@
-import { FC } from 'react'
+import { format, formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
+import { FC, useContext } from 'react'
+import { CycleContext } from '../../contexts/CycleContext'
 
 import { Container, HistoryList, Status } from './styles'
 
 export const HistoryPage: FC = () => {
+  const { cycles } = useContext(CycleContext)
   return (
     <Container>
       <h1>Meu Historico</h1>
@@ -17,94 +21,51 @@ export const HistoryPage: FC = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Interrompido</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Conserto de débitos técnicos</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>
-                <Status>Em andamento</Status>
-              </td>
-            </tr>
+            {cycles
+              .sort((cycle, nextCycle) => {
+                if (cycle.startDate > nextCycle.startDate) return -1
+                else return 1
+              })
+              .map((cycle) => {
+                let status = 'Em andamento'
+                if (cycle.finishedDate) status = 'concluído'
+                else if (cycle.interruptedDate) status = 'interrompido'
+
+                return (
+                  <tr key={cycle.id}>
+                    <td>{cycle.task}</td>
+                    <td>{cycle.minutes} minutos</td>
+                    <td>
+                      <time
+                        title={format(
+                          cycle.startDate,
+                          "dd 'de' MMMM 'de' yyyy, 'às' H:mm 'horas'",
+                          {
+                            locale: ptBR,
+                          },
+                        )}
+                        dateTime={cycle.startDate.toISOString()}
+                      >
+                        {formatDistanceToNow(cycle.startDate, {
+                          locale: ptBR,
+                          addSuffix: true,
+                        })}
+                      </time>
+                    </td>
+                    <td>
+                      {cycle.finishedDate && (
+                        <Status color="green">{status}</Status>
+                      )}
+                      {cycle.interruptedDate && (
+                        <Status color="red">{status}</Status>
+                      )}
+                      {!cycle.finishedDate && !cycle.interruptedDate && (
+                        <Status color="yellow">{status}</Status>
+                      )}
+                    </td>
+                  </tr>
+                )
+              })}
           </tbody>
         </table>
       </HistoryList>
