@@ -64,50 +64,7 @@ export const FormContainer = styled.form`
     }
   `}
 `
-
-export const TimerContainer = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    gap: 1rem;
-    > span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 2.5rem 1rem;
-
-      background: ${theme.colors['gray-700']};
-      border-radius: 8px;
-
-      font-family: 'Roboto mono', monospace;
-      font-weight: 700;
-      font-size: 10rem;
-      line-height: 80%;
-
-      color: ${theme.colors['gray-100']};
-    }
-  `}
-`
-
-export const Separator = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 2.5rem 1rem;
-
-    background: transparent;
-    border-radius: 8px;
-
-    font-family: 'Roboto mono', monospace;
-    font-weight: 700;
-    font-size: 10rem;
-    line-height: 80%;
-    color: ${theme.colors['green-500']};
-  `}
-`
-export const StartTimerButton = styled.button`
+export const ButtonComponent = styled.button`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
@@ -131,6 +88,26 @@ export const StartTimerButton = styled.button`
 
     &:hover:not(:disabled) {
       background: ${theme.colors['green-700']};
+    }
+  `}
+`
+
+export const StartTimerButton = styled(ButtonComponent)`
+  ${({ theme }) => css`
+    background: ${theme.colors['green-500']};
+
+    &:hover:not(:disabled) {
+      background: ${theme.colors['green-700']};
+    }
+  `}
+`
+
+export const CancelButton = styled(ButtonComponent)`
+  ${({ theme }) => css`
+    background: ${theme.colors['red-500']};
+
+    &:hover:not(:disabled) {
+      background: ${theme.colors['red-700']};
     }
   `}
 `
